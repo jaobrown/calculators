@@ -8,8 +8,8 @@ import { motion } from "framer-motion"
 const IndexPage = () => {
   let monthlyPayment //monthly mortgage payment
   const [principle, setPrinciple] = React.useState(225000)
-  const [interest, setInterest] = React.useState(4.15)
-  const [loanTerm, setLoanTerm] = React.useState(20)
+  const [interest, setInterest] = React.useState(3.86)
+  const [loanTerm, setLoanTerm] = React.useState(30)
   const [clickCount, setClickCount] = React.useState(0)
 
   const moneyFormatter = new Intl.NumberFormat("en-US", {
