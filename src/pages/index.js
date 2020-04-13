@@ -39,8 +39,8 @@ const IndexPage = () => {
       <SEO title="Home" />
       <section className="bg-gray-300 h-screen w-screen">
         <div className="container h-full flex items-center justify-center">
-          {/* Start Calculator */}
-          <div className="bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
+          {/* Start Calculator with sliders */}
+          <div className="hidden sm:block bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
             <h1 className="font-extrabold text-3xl text-gray-800">
               Monthly Payment Calculator
             </h1>
@@ -108,6 +108,57 @@ const IndexPage = () => {
               Estimated Monthly Payment: $
               <strong className="inline-block">{monthlyPayment}</strong>
             </div>
+          </div>
+          {/* End Calculator */}
+          {/* Start Calculator with inputs */}
+          <div className="block sm:hidden bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
+            <h1 className="font-extrabold text-3xl text-gray-800 leading-tight">
+              Monthly Payment Calculator
+            </h1>
+            <div className="mt-8 text-gray-700">
+              Estimated Monthly Payment: $
+              <strong className="inline-block">{monthlyPayment}</strong>
+            </div>
+            <form action="" className="mt-8">
+              <label className="block">
+                <span className="text-gray-700">Principle Amount</span>
+                <input
+                  className="form-input mt-1 block w-full"
+                  placeholder="$225,000"
+                  type="number"
+                  min="25000"
+                  max="450000"
+                  value={principle}
+                  onChange={e => setPrinciple(e.target.value)}
+                />
+              </label>
+              <label className="block mt-4">
+                <span className="text-gray-700">Interest Rate</span>
+                <input
+                  type="integer"
+                  min="2"
+                  max="10"
+                  className="form-input mt-1 block w-full"
+                  placeholder="4.6%"
+                  value={interest}
+                  onChange={e => setInterest(e.target.value)}
+                />
+              </label>
+              <label className="block mt-4">
+                <span className="text-gray-700">Loan Term</span>
+                <select
+                  className="form-select mt-1 block w-full"
+                  onChange={e => setLoanTerm(e.target.value)}
+                  value={loanTerm}
+                >
+                  <option>10</option>
+                  <option>15</option>
+                  <option>20</option>
+                  <option>25</option>
+                  <option>30</option>
+                </select>
+              </label>
+            </form>
           </div>
           {/* End Calculator */}
         </div>
