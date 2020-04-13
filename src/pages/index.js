@@ -1,14 +1,16 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-// import { motion, useAnimatedState } from "framer-motion"
+import { motion } from "framer-motion"
 // import "../styles/main.scss"
 
+// todo: convert to useReducer
 const IndexPage = () => {
   let monthlyPayment //monthly mortgage payment
   const [principle, setPrinciple] = React.useState(225000)
   const [interest, setInterest] = React.useState(4.15)
   const [loanTerm, setLoanTerm] = React.useState(20)
+  const [clickCount, setClickCount] = React.useState(0)
 
   const moneyFormatter = new Intl.NumberFormat("en-US", {
     // style: "currency",
@@ -37,8 +39,8 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <section className="bg-gray-300 h-screen w-screen">
-        <div className="container h-full flex items-center justify-center">
+      <section className="bg-gray-300 h-screen w-screen pt-24">
+        <div className="container h-full flex items-start justify-center">
           {/* Start Calculator with sliders */}
           <div className="hidden sm:block bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
             <h1 className="font-extrabold text-3xl text-gray-800">
@@ -61,6 +63,7 @@ const IndexPage = () => {
                   step="5000"
                   value={principle}
                   onChange={e => setPrinciple(e.target.value)}
+                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
                 />
               </label>
               <label className="block mt-4">
@@ -80,6 +83,7 @@ const IndexPage = () => {
                   placeholder="4.6%"
                   value={interest}
                   onChange={e => setInterest(e.target.value)}
+                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
                 />
               </label>
               <label className="block mt-4">
@@ -93,8 +97,9 @@ const IndexPage = () => {
                   min="10"
                   max="30"
                   step="5"
-                  onChange={e => setLoanTerm(e.target.value)}
                   value={loanTerm}
+                  onChange={e => setLoanTerm(e.target.value)}
+                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
                 >
                   {/* <option>10</option>
                   <option>15</option>
@@ -108,6 +113,18 @@ const IndexPage = () => {
               Estimated Monthly Payment: $
               <strong className="inline-block">{monthlyPayment}</strong>
             </div>
+            {clickCount >= 2 ? (
+              <motion.div
+                className="mt-4"
+                initial={{ y: 25, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                // transition={{ ease: "easeIn", duration: 0.25 }}
+              >
+                <button className="bg-teal-700 text-white font-bold px-5 py-3 rounded">
+                  Get Started
+                </button>
+              </motion.div>
+            ) : null}
           </div>
           {/* End Calculator */}
           {/* Start Calculator with inputs */}
@@ -130,6 +147,7 @@ const IndexPage = () => {
                   max="450000"
                   value={principle}
                   onChange={e => setPrinciple(e.target.value)}
+                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
                 />
               </label>
               <label className="block mt-4">
@@ -142,6 +160,7 @@ const IndexPage = () => {
                   placeholder="4.6%"
                   value={interest}
                   onChange={e => setInterest(e.target.value)}
+                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
                 />
               </label>
               <label className="block mt-4">
@@ -150,6 +169,7 @@ const IndexPage = () => {
                   className="form-select mt-1 block w-full"
                   onChange={e => setLoanTerm(e.target.value)}
                   value={loanTerm}
+                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
                 >
                   <option>10</option>
                   <option>15</option>
@@ -158,6 +178,18 @@ const IndexPage = () => {
                   <option>30</option>
                 </select>
               </label>
+              {clickCount >= 2 ? (
+                <motion.div
+                  className="mt-4"
+                  initial={{ y: 25, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  // transition={{ ease: "easeIn", duration: 0.25 }}
+                >
+                  <button className="bg-teal-700 text-white font-bold px-5 py-3 rounded">
+                    Get Started
+                  </button>
+                </motion.div>
+              ) : null}
             </form>
           </div>
           {/* End Calculator */}
