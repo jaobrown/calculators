@@ -41,90 +41,104 @@ const IndexPage = () => {
       <SEO title="Home" />
       <section className="bg-gray-300 h-screen w-screen pt-24">
         <div className="container h-full flex items-start justify-center">
-          {/* Start Calculator with sliders */}
-          <div className="hidden sm:block bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
-            <h1 className="font-extrabold text-3xl text-gray-800">
-              Monthly Payment Calculator
-            </h1>
-            <form action="" className="mt-8">
-              <label className="block">
-                <span className="text-gray-700">
-                  Principle Amount: $
-                  <strong className="inline-block">
-                    {moneyFormatter.format(principle)}
-                  </strong>
-                </span>
-                <input
-                  className="form-input mt-1 block w-full"
-                  placeholder="$225,000"
-                  type="range"
-                  min="25000"
-                  max="450000"
-                  step="5000"
-                  value={principle}
-                  onChange={e => setPrinciple(e.target.value)}
-                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
-                />
-              </label>
-              <label className="block mt-4">
-                <span className="text-gray-700">
-                  Interest Rate:{" "}
-                  <strong className="inline-block">
-                    {percentageFormatter.format(interest)}
-                  </strong>{" "}
-                  %
-                </span>
-                <input
-                  type="range"
-                  min="2"
-                  max="10"
-                  step=".05"
-                  className="form-input mt-1 block w-full"
-                  placeholder="4.6%"
-                  value={interest}
-                  onChange={e => setInterest(e.target.value)}
-                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
-                />
-              </label>
-              <label className="block mt-4">
-                <span className="text-gray-700">
-                  Loan Term:{" "}
-                  <strong className="inline-block">{loanTerm}</strong> years
-                </span>
-                <input
-                  className="form-select mt-1 block w-full"
-                  type="range"
-                  min="10"
-                  max="30"
-                  step="5"
-                  value={loanTerm}
-                  onChange={e => setLoanTerm(e.target.value)}
-                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
-                >
-                  {/* <option>10</option>
+          <div>
+            {/* Start Calculator with sliders */}
+            <div className="hidden sm:block bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
+              <h1 className="font-extrabold text-3xl text-gray-800">
+                Monthly Payment Calculator
+              </h1>
+              <form action="" className="mt-8">
+                <label className="block">
+                  <span className="text-gray-700">
+                    Principle Amount: $
+                    <strong className="inline-block">
+                      {moneyFormatter.format(principle)}
+                    </strong>
+                  </span>
+                  <input
+                    className="form-input mt-1 block w-full"
+                    placeholder="$225,000"
+                    type="range"
+                    min="25000"
+                    max="450000"
+                    step="5000"
+                    value={principle}
+                    onChange={e => setPrinciple(e.target.value)}
+                    onBlur={() => setClickCount(clickCount => clickCount + 1)}
+                  />
+                </label>
+                <label className="block mt-4">
+                  <span className="text-gray-700">
+                    Interest Rate:{" "}
+                    <strong className="inline-block">
+                      {percentageFormatter.format(interest)}
+                    </strong>{" "}
+                    %
+                  </span>
+                  <input
+                    type="range"
+                    min="2"
+                    max="10"
+                    step=".05"
+                    className="form-input mt-1 block w-full"
+                    placeholder="4.6%"
+                    value={interest}
+                    onChange={e => setInterest(e.target.value)}
+                    onBlur={() => setClickCount(clickCount => clickCount + 1)}
+                  />
+                </label>
+                <label className="block mt-4">
+                  <span className="text-gray-700">
+                    Loan Term:{" "}
+                    <strong className="inline-block">{loanTerm}</strong> years
+                  </span>
+                  <input
+                    className="form-select mt-1 block w-full"
+                    type="range"
+                    min="10"
+                    max="30"
+                    step="5"
+                    value={loanTerm}
+                    onChange={e => setLoanTerm(e.target.value)}
+                    onBlur={() => setClickCount(clickCount => clickCount + 1)}
+                  >
+                    {/* <option>10</option>
                   <option>15</option>
                   <option>20</option>
                   <option>25</option>
                   <option>30</option> */}
-                </input>
-              </label>
-            </form>
-            <div className="mt-8 text-gray-700">
-              Estimated Monthly Payment: $
-              <strong className="inline-block">{monthlyPayment}</strong>
-            </div>
-            {clickCount >= 2 ? (
-              <motion.div
-                className="mt-4"
-                initial={{ y: 25, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                // transition={{ ease: "easeIn", duration: 0.25 }}
+                  </input>
+                </label>
+              </form>
+              <div className="mt-8 text-gray-700">
+                Estimated Monthly Payment: $
+                <strong className="inline-block">{monthlyPayment}</strong>
+              </div>
+              {clickCount >= 2 ? (
+                <motion.div
+                  className="mt-4"
+                  initial={{ y: 25, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  // transition={{ ease: "easeIn", duration: 0.25 }}
+                >
+                  <button className="bg-teal-700 text-white font-bold px-5 py-3 rounded">
+                    Get Started
+                  </button>
+                </motion.div>
+              ) : null}
+              <p className="mx-auto max-w-lg flex-grow mt-8 text-xs text-gray-600 italic">
+                Payments reflect principal and interest only and do not include
+                taxes and insurance. Actual payment obligation will be higher.
+              </p>
+              <a
+                href="https://royalunitedmortgage.com/disclosures/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="underline block mx-auto max-w-lg flex-grow mt-2 text-xs text-gray-700"
               >
-                <button className="bg-teal-700 text-white font-bold px-5 py-3 rounded">
-                  Get Started
-                </button>
-              </motion.div>
-            ) : null}
+                Disclosures
+              </a>
+            </div>
           </div>
           {/* End Calculator */}
           {/* Start Calculator with inputs */}
@@ -190,6 +204,18 @@ const IndexPage = () => {
                   </button>
                 </motion.div>
               ) : null}
+              <p className="mx-auto max-w-lg flex-grow mt-8 text-xs text-gray-600 italic">
+                Payments reflect principal and interest only and do not include
+                taxes and insurance. Actual payment obligation will be higher.
+              </p>
+              <a
+                href="https://royalunitedmortgage.com/disclosures/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="underline block mx-auto max-w-lg flex-grow mt-2 text-xs text-gray-700"
+              >
+                Disclosures
+              </a>
             </form>
           </div>
           {/* End Calculator */}

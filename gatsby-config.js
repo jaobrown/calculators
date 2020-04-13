@@ -48,5 +48,13 @@ module.exports = {
         // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
       },
     },
+    {
+      resolve: `gatsby-plugin-bugherd`,
+      options: {
+        key: `wgbciyfx8tre2byybjzdvg`,
+        // whether to include the snippet in production. Defaults to false
+        showInProduction: true,
+      },
+    },
   ],
 }
