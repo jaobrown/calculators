@@ -4,6 +4,26 @@ import SEO from "../components/seo"
 import { motion } from "framer-motion"
 // import "../styles/main.scss"
 
+// const Modal = (props) => {
+//   return (
+//     <div className="fixed inset-0 bg-gray-900 flex justify-center items-center z-30 px-4">
+//       <div className="bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
+//         <div className="text-gray-700 leading-tight text-sm">
+//           Estimated Monthly Payment
+//           <br />
+//           <strong className="inline-block text-5xl">
+//             {" "}
+//             <span className="inline-block font-normal text-2xl transform -translate-y-3">
+//               $
+//             </span>
+//             {props.monthlyPayment}
+//           </strong>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
 // todo: convert to useReducer
 const IndexPage = () => {
   let monthlyPayment //monthly mortgage payment
@@ -15,12 +35,8 @@ const IndexPage = () => {
   const moneyFormatter = new Intl.NumberFormat("en-US", {
     // style: "currency",
     // currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  })
-
-  const percentageFormatter = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   })
 
   function calculateMonthlyPayment(p, n, i) {
@@ -39,120 +55,28 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <section className="bg-gray-300 h-screen w-screen pt-24">
+      {/* <Modal monthlyPayment={monthlyPayment}/> */}
+      <section className="bg-gray-300 h-screen w-full pt-24">
         <div className="container h-full flex items-start justify-center">
-          <div>
-            {/* Start Calculator with sliders */}
-            <div className="hidden sm:block bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
-              <h1 className="font-extrabold text-3xl text-gray-800">
-                Monthly Payment Calculator
-              </h1>
-              <form action="" className="mt-8">
-                <label className="block">
-                  <span className="text-gray-700">
-                    Principle Amount: $
-                    <strong className="inline-block">
-                      {moneyFormatter.format(principle)}
-                    </strong>
-                  </span>
-                  <input
-                    className="form-input mt-1 block w-full"
-                    placeholder="$225,000"
-                    type="range"
-                    min="25000"
-                    max="450000"
-                    step="5000"
-                    value={principle}
-                    onChange={e => setPrinciple(e.target.value)}
-                    onBlur={() => setClickCount(clickCount => clickCount + 1)}
-                  />
-                </label>
-                <label className="block mt-4">
-                  <span className="text-gray-700">
-                    Interest Rate:{" "}
-                    <strong className="inline-block">
-                      {percentageFormatter.format(interest)}
-                    </strong>{" "}
-                    %
-                  </span>
-                  <input
-                    type="range"
-                    min="2"
-                    max="10"
-                    step=".05"
-                    className="form-input mt-1 block w-full"
-                    placeholder="4.6%"
-                    value={interest}
-                    onChange={e => setInterest(e.target.value)}
-                    onBlur={() => setClickCount(clickCount => clickCount + 1)}
-                  />
-                </label>
-                <label className="block mt-4">
-                  <span className="text-gray-700">
-                    Loan Term:{" "}
-                    <strong className="inline-block">{loanTerm}</strong> years
-                  </span>
-                  <input
-                    className="form-select mt-1 block w-full"
-                    type="range"
-                    min="10"
-                    max="30"
-                    step="5"
-                    value={loanTerm}
-                    onChange={e => setLoanTerm(e.target.value)}
-                    onBlur={() => setClickCount(clickCount => clickCount + 1)}
-                  >
-                    {/* <option>10</option>
-                  <option>15</option>
-                  <option>20</option>
-                  <option>25</option>
-                  <option>30</option> */}
-                  </input>
-                </label>
-              </form>
-              <div className="mt-8 text-gray-700">
-                Estimated Monthly Payment: $
-                <strong className="inline-block">{monthlyPayment}</strong>
-              </div>
-              {clickCount >= 2 ? (
-                <motion.div
-                  className="mt-4"
-                  initial={{ y: 25, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  // transition={{ ease: "easeIn", duration: 0.25 }}
-                >
-                  <button className="bg-teal-700 text-white font-bold px-5 py-3 rounded">
-                    Get Started
-                  </button>
-                </motion.div>
-              ) : null}
-              <p className="mx-auto max-w-lg flex-grow mt-8 text-xs text-gray-600 italic">
-                Payments reflect principal and interest only and do not include
-                taxes and insurance. Actual payment obligation will be higher.
-              </p>
-              <a
-                href="https://royalunitedmortgage.com/disclosures/"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="underline block mx-auto max-w-lg flex-grow mt-2 text-xs text-gray-700"
-              >
-                Disclosures
-              </a>
-            </div>
-          </div>
-          {/* End Calculator */}
           {/* Start Calculator with inputs */}
-          <div className="block sm:hidden bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
-            <h1 className="font-extrabold text-3xl text-gray-800 leading-tight">
-              Monthly Payment Calculator
+          <div className="bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
+            <h1 className="font-semibold text-3xl text-gray-800 leading-tight">
+              New Home Mortgage Payment Estimator
             </h1>
-            <div className="mt-8 text-gray-700">
-              Estimated Monthly Payment: $
-              <strong className="inline-block">{monthlyPayment}</strong>
+            <div className="mt-8 text-gray-700 leading-tight text-sm">
+              Estimated Monthly Payment
+              <br />
+              <strong className="inline-block text-5xl">
+                {" "}
+                <span className="inline-block font-normal text-2xl transform -translate-y-3">
+                  $
+                </span>
+                {monthlyPayment}
+              </strong>
             </div>
-            <form action="" className="mt-8">
+            <form action="" className="mt-5">
               <label className="block">
-                <span className="text-gray-700">Principle Amount</span>
+                <span className="text-gray-700 text-sm">Mortgage Amount</span>
                 <input
                   className="form-input mt-1 block w-full"
                   placeholder="$225,000"
@@ -165,7 +89,7 @@ const IndexPage = () => {
                 />
               </label>
               <label className="block mt-4">
-                <span className="text-gray-700">Interest Rate</span>
+                <span className="text-gray-700 text-sm">Interest Rate</span>
                 <input
                   type="integer"
                   min="2"
@@ -178,7 +102,7 @@ const IndexPage = () => {
                 />
               </label>
               <label className="block mt-4">
-                <span className="text-gray-700">Loan Term</span>
+                <span className="text-gray-700 text-sm">Loan Duration</span>
                 <select
                   className="form-select mt-1 block w-full"
                   onChange={e => setLoanTerm(e.target.value)}
@@ -224,4 +148,5 @@ const IndexPage = () => {
     </Layout>
   )
 }
+
 export default IndexPage

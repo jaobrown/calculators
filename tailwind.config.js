@@ -1,5 +1,9 @@
 module.exports = {
   theme: {
+    fontFamily: {
+      'sans': ['Work Sans', 'sans-serif'],
+      'body': ['Work Sans', 'sans-serif'],
+    },
     extend: {},
     container: {
       center: true,
