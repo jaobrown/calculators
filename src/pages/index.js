@@ -21,8 +21,8 @@ const Modal = props => {
   const [lName, setLName] = useState("")
   const [phone, setPhone] = useState("")
   return (
-    <div className="fixed inset-0 bg-gray-900 flex justify-center items-center z-30 px-4">
-      <div className="bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
+    <div className="fixed inset-0 overflow-y-scroll bg-gray-900 z-30 px-4">
+      <div className="my-8 bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
         <h2>Your estimated mortgage</h2>
         <div className="text-gray-700 leading-tight text-sm mt-8">
           Mortgage Amount
@@ -135,7 +135,7 @@ const IndexPage = () => {
           loanTerm={loanTerm}
         />
       )}
-      <section className="bg-gray-300 min-h-screen w-full pt-24">
+      <section className="bg-gray-300 min-h-screen w-full py-24">
         <div className="container h-full flex items-start justify-center">
           {/* Start Calculator with inputs */}
           <div className="bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
