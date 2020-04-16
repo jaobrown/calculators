@@ -1,13 +1,25 @@
-import React from "react"
+import React, { useState } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { motion } from "framer-motion"
 // import "../styles/main.scss"
 
+const moneyFormatter = new Intl.NumberFormat("en-US", {
+  // style: "currency",
+  // currency: "USD",
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+})
+
+const percentFormatter = new Intl.NumberFormat("en-US", {
+  minimumFractionDigits: 3,
+  maximumFractionDigits: 3,
+})
+
 const Modal = props => {
-  const [fName, setFName] = React.useState("")
-  const [lName, setLName] = React.useState("")
-  const [phone, setPhone] = React.useState("")
+  const [fName, setFName] = useState("")
+  const [lName, setLName] = useState("")
+  const [phone, setPhone] = useState("")
   return (
     <div className="fixed inset-0 bg-gray-900 flex justify-center items-center z-30 px-4">
       <div className="bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
@@ -20,14 +32,14 @@ const Modal = props => {
             <span className="inline-block font-normal text-2xl transform -translate-y-3">
               $
             </span>
-            {props.principal}
+            {moneyFormatter.format(props.principal)}
           </strong>
         </div>
         <div className="text-gray-700 leading-tight text-sm">
           Interest Rate
           <br />
           <strong className="inline-block text-5xl"> {props.interest}</strong>
-          <span className="inline-block font-normal text-2xl transform -translate-y-3">
+          <span className="inline-block font-normal text-2xl transform -translate-y-3 translate-x-1">
             %
           </span>
         </div>
@@ -35,8 +47,7 @@ const Modal = props => {
           Loan Term
           <br />
           <strong className="inline-block text-5xl">{props.loanTerm} </strong>
-          <span className="inline-block font-normal text-2xl transform -translate-y-3">
-            {" "}
+          <span className="inline-block font-normal text-2xl transform -translate-y-3 translate-x-1">
             years
           </span>
         </div>
@@ -94,23 +105,11 @@ const Modal = props => {
 // todo: convert to useReducer
 const IndexPage = () => {
   let monthlyPayment //monthly mortgage payment
-  const [principal, setPrincipal] = React.useState(225000)
-  const [interest, setInterest] = React.useState(3.86)
-  const [loanTerm, setLoanTerm] = React.useState(30)
-  const [clickCount, setClickCount] = React.useState(0)
-  const [isFormOpen, setIsFormOpen] = React.useState(false)
-
-  const moneyFormatter = new Intl.NumberFormat("en-US", {
-    // style: "currency",
-    // currency: "USD",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
-
-  const percentFormatter = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 3,
-    maximumFractionDigits: 3,
-  })
+  const [principal, setPrincipal] = useState(225000)
+  const [interest, setInterest] = useState(3.86)
+  const [loanTerm, setLoanTerm] = useState(30)
+  const [clickCount, setClickCount] = useState(0)
+  const [isFormOpen, setIsFormOpen] = useState(false)
 
   function calculateMonthlyPayment(p, n, i) {
     return moneyFormatter.format(
@@ -136,7 +135,7 @@ const IndexPage = () => {
           loanTerm={loanTerm}
         />
       )}
-      <section className="bg-gray-300 h-screen w-full pt-24">
+      <section className="bg-gray-300 min-h-screen w-full pt-24">
         <div className="container h-full flex items-start justify-center">
           {/* Start Calculator with inputs */}
           <div className="bg-white rounded-md p-12 shadow-md mx-auto max-w-lg flex-grow">
@@ -160,16 +159,6 @@ const IndexPage = () => {
                   Mortgage Amount $
                   <strong>{moneyFormatter.format(principal)}</strong>
                 </span>
-                {/* <input
-                  className="form-input mt-1 block w-full"
-                  placeholder="$225,000"
-                  type="number"
-                  min="25000"
-                  max="450000"
-                  value={principal}
-                  onChange={e => setPrinciple(e.target.value)}
-                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
-                /> */}
                 <input
                   className="form-input mt-1 block w-full"
                   placeholder="$225,000"
@@ -179,7 +168,7 @@ const IndexPage = () => {
                   step="1000"
                   value={principal}
                   onChange={e => setPrincipal(e.target.value)}
-                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
+                  onClick={() => setClickCount(clickCount => clickCount + 1)}
                 />
               </label>
               <label className="block mt-4">
@@ -189,23 +178,23 @@ const IndexPage = () => {
                 </span>
                 <input
                   type="range"
-                  min="2"
-                  max="10"
+                  min="3"
+                  max="6.5"
                   step=".125"
                   className="form-input mt-1 block w-full"
                   placeholder="4.6%"
                   value={interest}
                   onChange={e => setInterest(e.target.value)}
-                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
+                  onClick={() => setClickCount(clickCount => clickCount + 1)}
                 />
               </label>
               <label className="block mt-4">
                 <span className="text-gray-700 text-sm">Loan Duration</span>
                 <select
                   className="form-select mt-1 block w-full"
-                  onChange={e => setLoanTerm(e.target.value)}
                   value={loanTerm}
-                  onBlur={() => setClickCount(clickCount => clickCount + 1)}
+                  onChange={e => setLoanTerm(e.target.value)}
+                  onClick={() => setClickCount(clickCount => clickCount + 1)}
                 >
                   <option>10</option>
                   <option>15</option>
@@ -221,9 +210,13 @@ const IndexPage = () => {
                   animate={{ y: 0, opacity: 1 }}
                   // transition={{ ease: "easeIn", duration: 0.25 }}
                 >
-                  <div className="inline-block bg-teal-700 text-white font-bold px-5 py-3 rounded" onClick={() => setIsFormOpen(true)}>
+                  <button
+                    className="inline-block bg-teal-700 text-white font-bold px-5 py-3 rounded"
+                    onClick={() => setIsFormOpen(true)}
+                    type="button"
+                  >
                     Get Started
-                  </div>
+                  </button>
                 </motion.div>
               ) : null}
               <p className="mx-auto max-w-lg flex-grow mt-8 text-xs text-gray-600 italic">
