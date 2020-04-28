@@ -16,6 +16,12 @@ const percentFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 3,
 })
 
+export const calculateMonthlyPayment = (p, n, i) => {
+  return moneyFormatter.format(
+    (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1)
+  )
+}
+
 // const Modal = props => {
 //   const [fName, setFName] = useState("")
 //   const [lName, setLName] = useState("")
@@ -110,14 +116,6 @@ const IndexPage = () => {
   const [loanTerm, setLoanTerm] = useState("30 years")
   const [clickCount, setClickCount] = useState(0)
   const [isFormOpen, setIsFormOpen] = useState(false)
-
-  function calculateMonthlyPayment(p, n, i) {
-    return moneyFormatter.format(
-      (p * i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1)
-    )
-  }
-
-  // console.log(loanTerm)
 
   let strippedLoanTerm = +loanTerm.split(" ")[0]
 
