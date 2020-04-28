@@ -1,3 +1,5 @@
+import LoanCalc from "loan-calc"
+
 // Utility for formatting percentages
 export const percentFormatter = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 3,
@@ -13,9 +15,9 @@ export const moneyFormatter = new Intl.NumberFormat("en-US", {
 })
 
 export const calculateMonthlyPayment = (principle, loanTerm, interest) => {
-//   const strippedLoanTerm = +loanTerm.split(" ")[0]
+  //   const strippedLoanTerm = +loanTerm.split(" ")[0]
   const p = principle
-//   const n = strippedLoanTerm * 12
+  //   const n = strippedLoanTerm * 12
   const n = loanTerm * 12
   const i = interest / 100 / 12
   return moneyFormatter.format(
@@ -51,4 +53,42 @@ export const calculateTimeToSavings = (
   let difference = current - refi
   let time = Math.ceil(costs / difference)
   return `It will take ${time} months for closing costs to be paid for with savings`
+}
+
+export const calculateTotalInterest = (
+  principal,
+  refiInterest,
+  refiLoanTerm,
+  currentInterest,
+  closingCosts,
+  financeClosingCosts
+) => {
+  if (financeClosingCosts === "Yes") {
+    var refiInterestCost = LoanCalc.totalInterest({
+      amount: principal + (parseFloat(closingCosts) / 100) * principal,
+      rate: refiInterest,
+      termMonths: refiLoanTerm * 12,
+    })
+  } else {
+    var refiInterestCost = LoanCalc.totalInterest({
+      amount: principal,
+      rate: refiInterest,
+      termMonths: refiLoanTerm * 12,
+    })
+  }
+  let currentInterestCost = LoanCalc.totalInterest({
+    amount: principal,
+    rate: currentInterest,
+    termMonths: refiLoanTerm * 12,
+  })
+  let difference = currentInterestCost - refiInterestCost
+  if (difference > 0) {
+    return `You will save $${moneyFormatter.format(
+      difference
+    )} in interest over the loan's lifetime`
+  } else if (difference <= 0) {
+    return `You will spend $${moneyFormatter.format(
+      difference
+    )} more on interest over the loan's lifetime`
+  }
 }

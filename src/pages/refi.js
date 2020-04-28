@@ -5,6 +5,7 @@ import {
   calculateMonthlyPayment,
   calculateTimeToSavings,
   calculateMonthlySavings,
+  calculateTotalInterest,
 } from "../functions/calculations"
 
 const initialState = {
@@ -62,10 +63,6 @@ const SecondPage = () => {
 
   const handleInsights = () => {
     setShowInsights(prevState => !prevState)
-  }
-
-  const calculateTotalInterest = () => {
-
   }
 
   return (
@@ -213,10 +210,17 @@ const SecondPage = () => {
                     </li>
 
                     {/* Interest cost savings over lifetime of loan */}
-                    <li>You will save $x,xxx in interest</li>
-
-                    {/* New refi savings (interest savings - closing costs) */}
-                    <li>You will save $x,xxx over the loan's lifetime</li>
+                    <li>
+                      {calculateTotalInterest(
+                        principal,
+                        refiInterest,
+                        refiLoanTerm,
+                        currentInterest,
+                        refiLoanTerm,
+                        closingCosts,
+                        financeClosingCosts
+                      )}
+                    </li>
                   </ul>
                 </div>
               )}
