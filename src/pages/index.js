@@ -1,20 +1,9 @@
 import React, { useState } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { moneyFormatter, percentFormatter } from "../functions/calculations"
 import { motion } from "framer-motion"
 // import "../styles/main.scss"
-
-const moneyFormatter = new Intl.NumberFormat("en-US", {
-  // style: "currency",
-  // currency: "USD",
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 0,
-})
-
-const percentFormatter = new Intl.NumberFormat("en-US", {
-  minimumFractionDigits: 3,
-  maximumFractionDigits: 3,
-})
 
 export const calculateMonthlyPayment = (p, n, i) => {
   return moneyFormatter.format(
@@ -142,7 +131,7 @@ const IndexPage = () => {
           {/* Start Calculator with inputs */}
           <div className="bg-white p-12 shadow-md mx-auto max-w-lg flex-grow">
             <h2 className="font-medium text-3xl text-brand-royal-blue leading-tight">
-              Mortgage Calculator
+              Mortgage Payment Calculator
             </h2>
             <div className="mt-8 text-brand-gray-300 leading-tight text-sm">
               Estimated Monthly Payment
@@ -158,7 +147,7 @@ const IndexPage = () => {
             <form action="" className="mt-5">
               <label className="block">
                 <span className="text-brand-gray-300 text-sm leading-tight">
-                  Home Price <br />
+                  Home Loan Amount <br />
                   <strong className="font-medium inline-block text-4xl text-brand-royal-blue">
                     {" "}
                     <span className="inline-block font-normal text-lg transform -translate-y-2">
@@ -172,7 +161,7 @@ const IndexPage = () => {
                   placeholder="$225,000"
                   type="range"
                   min="25000"
-                  max="450000"
+                  max="750000"
                   step="1000"
                   value={principal}
                   onChange={e => setPrincipal(e.target.value)}
@@ -191,11 +180,11 @@ const IndexPage = () => {
                 </span>
                 <input
                   type="range"
-                  min="3"
+                  min="2.5"
                   max="6.5"
                   step=".125"
                   className="form-input mt-2 block w-full border-none p-0"
-                  placeholder="4.6%"
+                  placeholder="4.125%"
                   value={interest}
                   onChange={e => setInterest(e.target.value)}
                   onClick={() => setClickCount(clickCount => clickCount + 1)}
@@ -235,8 +224,8 @@ const IndexPage = () => {
                 </motion.div>
               ) : null}
               <p className="mx-auto max-w-lg flex-grow mt-10 text-xs text-gray-600 italic">
-                Payments reflect principal and interest only and do not include
-                taxes and insurance. Actual payment obligation will be higher.
+                This Calculator is for demonstrational purposes only and does
+                not reflect any rate or payment you may qualify for.
               </p>
               <a
                 href="https://royalunitedmortgage.com/disclosures/"
