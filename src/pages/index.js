@@ -161,7 +161,7 @@ const IndexPage = () => {
                   placeholder="$225,000"
                   type="range"
                   min="25000"
-                  max="750000"
+                  max="725000"
                   step="1000"
                   value={principal}
                   onChange={e => setPrincipal(e.target.value)}
