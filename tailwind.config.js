@@ -11,6 +11,7 @@ module.exports = {
         "brand-gray-100": "#A0A0A0",
         "brand-royal-blue": "#111C4E",
         "brand-teal": "#00A19C",
+        debug: "#F156B3",
       },
     },
     container: {

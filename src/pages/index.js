@@ -117,7 +117,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title="New Loan" />
       {/* {isFormOpen && (
         <Modal
           monthlyPayment={monthlyPayment}
@@ -129,114 +129,143 @@ const IndexPage = () => {
       <section className="bg-gray-300 min-h-screen w-full py-24">
         <div className="container h-full flex items-start justify-center">
           {/* Start Calculator with inputs */}
-          <div className="bg-white p-12 shadow-md mx-auto max-w-lg flex-grow">
+          <div className="bg-white p-12 shadow-md mx-auto flex-grow max-w-4xl">
             <h2 className="font-medium text-3xl text-brand-royal-blue leading-tight">
               Mortgage Payment Calculator
             </h2>
-            <div className="mt-8 text-brand-gray-300 leading-tight text-sm">
-              Estimated Monthly Payment
-              <br />
-              <strong className="font-medium inline-block text-6xl text-brand-teal">
-                {" "}
-                <span className="inline-block font-normal text-2xl transform -translate-y-4">
-                  $
-                </span>
-                {monthlyPayment}
-              </strong>
-            </div>
-            <form action="" className="mt-5">
-              <label className="block">
-                <span className="text-brand-gray-300 text-sm leading-tight">
-                  Home Loan Amount <br />
-                  <strong className="font-medium inline-block text-4xl text-brand-royal-blue">
+            <div className="flex flex-wrap -mx-8">
+              <div className="w-full sm:w-1/2 px-8">
+                <form action="" className="mt-5">
+                  <label className="block">
+                    <span className="text-brand-gray-300 text-sm leading-tight">
+                      Home Loan Amount <br />
+                      <strong className="font-medium inline-block text-4xl text-brand-royal-blue">
+                        {" "}
+                        <span className="inline-block font-normal text-lg transform -translate-y-2">
+                          $
+                        </span>
+                        {moneyFormatter.format(principal)}
+                      </strong>
+                    </span>
+                    <input
+                      className="form-input mt-2 block w-full border-none p-0"
+                      placeholder="$225,000"
+                      type="range"
+                      min="25000"
+                      max="725000"
+                      step="1000"
+                      value={principal}
+                      onChange={e => setPrincipal(e.target.value)}
+                      onClick={() =>
+                        setClickCount(clickCount => clickCount + 1)
+                      }
+                    />
+                  </label>
+                  <label className="block mt-4">
+                    <span className="text-brand-gray-300 text-sm leading-tight">
+                      Interest Rate <br />
+                      <strong className="font-medium inline-block text-4xl text-brand-royal-blue">
+                        {percentFormatter.format(interest)}
+                        <span className="inline-block font-normal text-lg transform -translate-y-2 translate-x-1">
+                          %
+                        </span>
+                      </strong>
+                    </span>
+                    <input
+                      type="range"
+                      min="2.5"
+                      max="6.5"
+                      step=".125"
+                      className="form-input mt-2 block w-full border-none p-0"
+                      placeholder="4.125%"
+                      value={interest}
+                      onChange={e => setInterest(e.target.value)}
+                      onClick={() =>
+                        setClickCount(clickCount => clickCount + 1)
+                      }
+                    />
+                  </label>
+                  <label className="block mt-4">
+                    <span className="text-brand-gray-300 text-sm">
+                      Loan Duration
+                    </span>
+                    <select
+                      className="form-select mt-2 block w-1/2 rounded-none border-4 border-brand-royal-blue text-brand-royal-blue font-semibold"
+                      value={loanTerm}
+                      onChange={e => setLoanTerm(e.target.value)}
+                      onClick={() =>
+                        setClickCount(clickCount => clickCount + 1)
+                      }
+                    >
+                      <option>10 years</option>
+                      <option>15 years</option>
+                      <option>20 years</option>
+                      <option>25 years</option>
+                      <option>30 years</option>
+                    </select>
+                  </label>
+                </form>
+                <div className="sm:hidden">
+                  <p className="mx-auto flex-grow mt-10 text-xs text-gray-600 italic">
+                    This Calculator is for demonstrational purposes only and
+                    does not reflect any rate or payment you may qualify for.
+                  </p>
+                  <a
+                    href="https://royalunitedmortgage.com/disclosures/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="underline block mx-auto flex-grow mt-2 text-xs text-brand-gray-300"
+                  >
+                    Disclosures
+                  </a>
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 px-8 order-first sm:order-none">
+                <div className="mt-8 sm:mt-5 text-brand-gray-300 leading-tight text-sm">
+                  Estimated Monthly Payment
+                  <br />
+                  <strong className="font-medium inline-block text-6xl text-brand-teal">
                     {" "}
-                    <span className="inline-block font-normal text-lg transform -translate-y-2">
+                    <span className="inline-block font-normal text-2xl transform -translate-y-4">
                       $
                     </span>
-                    {moneyFormatter.format(principal)}
+                    {monthlyPayment}
                   </strong>
-                </span>
-                <input
-                  className="form-input mt-2 block w-full border-none p-0"
-                  placeholder="$225,000"
-                  type="range"
-                  min="25000"
-                  max="725000"
-                  step="1000"
-                  value={principal}
-                  onChange={e => setPrincipal(e.target.value)}
-                  onClick={() => setClickCount(clickCount => clickCount + 1)}
-                />
-              </label>
-              <label className="block mt-4">
-                <span className="text-brand-gray-300 text-sm leading-tight">
-                  Interest Rate <br />
-                  <strong className="font-medium inline-block text-4xl text-brand-royal-blue">
-                    {percentFormatter.format(interest)}
-                    <span className="inline-block font-normal text-lg transform -translate-y-2 translate-x-1">
-                      %
-                    </span>
-                  </strong>
-                </span>
-                <input
-                  type="range"
-                  min="2.5"
-                  max="6.5"
-                  step=".125"
-                  className="form-input mt-2 block w-full border-none p-0"
-                  placeholder="4.125%"
-                  value={interest}
-                  onChange={e => setInterest(e.target.value)}
-                  onClick={() => setClickCount(clickCount => clickCount + 1)}
-                />
-              </label>
-              <label className="block mt-4">
-                <span className="text-brand-gray-300 text-sm">
-                  Loan Duration
-                </span>
-                <select
-                  className="form-select mt-2 block w-1/2 rounded-none border-4 border-brand-royal-blue text-brand-royal-blue font-semibold"
-                  value={loanTerm}
-                  onChange={e => setLoanTerm(e.target.value)}
-                  onClick={() => setClickCount(clickCount => clickCount + 1)}
-                >
-                  <option>10 years</option>
-                  <option>15 years</option>
-                  <option>20 years</option>
-                  <option>25 years</option>
-                  <option>30 years</option>
-                </select>
-              </label>
-              {clickCount >= 2 ? (
-                <motion.div
-                  className=" mt-10"
-                  initial={{ y: 25, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  // transition={{ ease: "easeIn", duration: 0.25 }}
-                >
-                  <button
-                    className="inline-block bg-brand-teal text-white font-normal px-10 py-3"
-                    onClick={() => setIsFormOpen(true)}
-                    type="button"
+                </div>
+                {clickCount >= 2 ? (
+                  <motion.div
+                    className="mt-4 sm:mt-10"
+                    initial={{ y: 25, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    // transition={{ ease: "easeIn", duration: 0.25 }}
                   >
-                    Get Started
-                  </button>
-                </motion.div>
-              ) : null}
-              <p className="mx-auto max-w-lg flex-grow mt-10 text-xs text-gray-600 italic">
-                This Calculator is for demonstrational purposes only and does
-                not reflect any rate or payment you may qualify for.
-              </p>
-              <a
-                href="https://royalunitedmortgage.com/disclosures/"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="underline block mx-auto max-w-lg flex-grow mt-2 text-xs text-brand-gray-300"
-              >
-                Disclosures
-              </a>
-            </form>
+                    <button
+                      className="inline-block bg-brand-teal text-white font-normal px-10 py-3"
+                      onClick={() => setIsFormOpen(true)}
+                      type="button"
+                    >
+                      Get Started
+                    </button>
+                  </motion.div>
+                ) : null}
+                <div className="hidden sm:block">
+                  <p className="mx-auto flex-grow mt-10 text-xs text-gray-600 italic">
+                    This Calculator is for demonstrational purposes only and
+                    does not reflect any rate or payment you may qualify for.
+                  </p>
+                  <a
+                    href="https://royalunitedmortgage.com/disclosures/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className="underline block mx-auto flex-grow mt-2 text-xs text-brand-gray-300"
+                  >
+                    Disclosures
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+
           {/* End Calculator */}
         </div>
       </section>

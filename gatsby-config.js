@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Tailwind Starter`,
-    description: `A simple simple, empty gatsby + tailwind + purgecss starter.`,
+    title: `RUM Calculator Demo`,
+    description: `Work in progress calculators demo pages`,
     author: `@jaobrown`,
   },
   plugins: [

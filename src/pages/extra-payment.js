@@ -1,5 +1,4 @@
 import React, { useReducer, useState, useEffect } from "react"
-import { XYPlot, VerticalBarSeries } from "react-vis"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import {
@@ -35,7 +34,6 @@ const SecondPage = () => {
     currentInterest,
     refiInterest,
     refiLoanTerm,
-    refiCashOut,
   } = state
 
   const onChange = e => {
@@ -57,13 +55,13 @@ const SecondPage = () => {
 
   return (
     <Layout>
-      <SEO title="Refinance" />
+      <SEO title="Extra Payment" />
       <section className="bg-gray-300 min-h-screen w-full py-24">
         <div className="container h-full flex items-start justify-center">
           {/* Start Calculator with inputs */}
           <div className="bg-white p-12 shadow-md mx-auto flex-grow">
             <h2 className="font-medium text-3xl text-brand-royal-blue leading-tight">
-              Refinance
+              Extra Payment Calculator
             </h2>
             <form action="">
               <div className="flex flex-wrap">
@@ -71,8 +69,8 @@ const SecondPage = () => {
                   <h3 className="mt-5 font-bold">Current Mortgage</h3>
                   {/* Current principal balance */}
                   <div className="mt-2 flex flex-wrap">
-                    <label className="block w-full md:w-1/2">
-                      <span className="text-sm">Principal Balance</span>
+                    <label className="block w-full sm:w-1/2">
+                      <span className="text-sm">Loan amount</span>
                       <input
                         name="principal"
                         onChange={onChange}
@@ -84,20 +82,7 @@ const SecondPage = () => {
                     </label>
 
                     {/* Current Interest Rate */}
-                    <label className="block  w-full md:w-1/2">
-                      <span className="text-sm">Years Remaining</span>
-                      <input
-                        name="currentInterest"
-                        value={currentInterest}
-                        onChange={onChange}
-                        type="number"
-                        placeholder="4.1%"
-                        className="form-input block"
-                      />
-                    </label>
-
-                    {/* Current Interest Rate */}
-                    <label className="block  w-full md:w-1/2 mt-4">
+                    <label className="block  w-full sm:w-1/2">
                       <span className="text-sm">Interest Rate</span>
                       <input
                         name="currentInterest"
@@ -109,9 +94,22 @@ const SecondPage = () => {
                       />
                     </label>
 
+                    {/* Current Interest Rate */}
+                    <label className="block  w-full sm:w-1/2 mt-4">
+                      <span className="text-sm">Loan term</span>
+                      <input
+                        name="currentInterest"
+                        value={currentInterest}
+                        onChange={onChange}
+                        type="number"
+                        placeholder="30 years"
+                        className="form-input block"
+                      />
+                    </label>
+
                     {/* Current monthly P&I Payment */}
-                    <label className="block  w-full md:w-1/2 mt-4">
-                      <span className="text-sm">Monthly Payment (P&amp;I)</span>
+                    <label className="block  w-full sm:w-1/2 mt-4">
+                      <span className="text-sm">Extra Monthly Payment</span>
                       <input
                         name="currentMonthlyPayment"
                         onChange={onChange}
@@ -122,57 +120,14 @@ const SecondPage = () => {
                       />
                     </label>
                   </div>
-
-                  <h3 className="mt-8 font-bold">New Mortgage</h3>
-                  {/* New interest rate: */}
-                  <div className="flex flex-wrap">
-                    <label className="block mt-2 w-full md:w-1/2">
-                      <span className="text-sm">Interest rate</span>
-                      <input
-                        name="refiInterest"
-                        value={refiInterest}
-                        onChange={onChange}
-                        type="number"
-                        placeholder="3.79%"
-                        className="form-input block"
-                      />
-                    </label>
-
-                    {/* Desired cash out: */}
-                    <label className="block mt-2 w-full md:w-1/2">
-                      <span className="text-sm">Desired cash out</span>
-                      <input
-                        name="refiCashOut"
-                        value={refiCashOut}
-                        onChange={onChange}
-                        type="number"
-                        placeholder="$10,000"
-                        className="form-input block"
-                      />
-                    </label>
-
-                    {/* New Loan Term 	 */}
-                    <label className="block mt-4 w-full md:w-1/2">
-                      <span className="text-sm">Loan term</span>
-                      <input
-                        name="refiLoanTerm"
-                        value={refiLoanTerm}
-                        onChange={onChange}
-                        type="number"
-                        placeholder="30 Years"
-                        className="form-input block"
-                      />
-                    </label>
-
-                    <div className="mt-10">
-                      <button
-                        className="inline-block bg-brand-teal text-white font-normal px-10 py-3"
-                        onClick={() => handleInsights()}
-                        type="button"
-                      >
-                        {showInsights ? `Recalculate` : `See Insights`}
-                      </button>
-                    </div>
+                  <div className="mt-10">
+                    <button
+                      className="inline-block bg-brand-teal text-white font-normal px-10 py-3"
+                      onClick={() => handleInsights()}
+                      type="button"
+                    >
+                      {showInsights ? `Recalculate` : `See Insights`}
+                    </button>
                   </div>
                 </div>
 
@@ -220,26 +175,9 @@ const SecondPage = () => {
                         )}
                       </li>
                     </ul>
-                    {showInsights ? (
-                      <XYPlot height={175} width={250}>
-                        <VerticalBarSeries
-                          data={[
-                            {
-                              x: 0,
-                              y: currentMonthlyPayment,
-                            },
-                            {
-                              x: 1,
-                              y: refiMonthlyPayment,
-                            },
-                          ]}
-                        />
-                      </XYPlot>
-                    ) : null}
                   </div>
                 </div>
               </div>
-
               <p className="max-w-xl flex-grow mt-10 text-xs text-gray-600 italic">
                 Payments reflect principal and interest only and do not include
                 taxes and insurance. Actual payment obligation will be higher.

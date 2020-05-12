@@ -41,41 +41,17 @@ export const calculateMonthlySavings = (
   }
 }
 
-export const calculateTimeToSavings = (
-  principal,
-  currentMonthlyPayment,
-  refiMonthlyPayment,
-  closingCosts
-) => {
-  let current = parseFloat(currentMonthlyPayment)
-  let refi = parseFloat(refiMonthlyPayment)
-  let costs = (parseFloat(closingCosts) / 100) * principal
-  let difference = current - refi
-  let time = Math.ceil(costs / difference)
-  return `It will take ${time} months for closing costs to be paid for with savings`
-}
-
 export const calculateTotalInterest = (
   principal,
   refiInterest,
   refiLoanTerm,
-  currentInterest,
-  closingCosts,
-  financeClosingCosts
+  currentInterest
 ) => {
-  if (financeClosingCosts === "Yes") {
-    var refiInterestCost = LoanCalc.totalInterest({
-      amount: principal + (parseFloat(closingCosts) / 100) * principal,
-      rate: refiInterest,
-      termMonths: refiLoanTerm * 12,
-    })
-  } else {
-    var refiInterestCost = LoanCalc.totalInterest({
-      amount: principal,
-      rate: refiInterest,
-      termMonths: refiLoanTerm * 12,
-    })
-  }
+  var refiInterestCost = LoanCalc.totalInterest({
+    amount: principal,
+    rate: refiInterest,
+    termMonths: refiLoanTerm * 12,
+  })
   let currentInterestCost = LoanCalc.totalInterest({
     amount: principal,
     rate: currentInterest,
