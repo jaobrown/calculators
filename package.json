@@ -6,7 +6,7 @@
   "author": "Jared Brown <jared@kodastudio.co>",
   "dependencies": {
     "framer-motion": "^1.10.3",
-    "gatsby": "^2.19.7",
+    "gatsby": "^4.25.7",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-bugherd": "^1.0.2",
     "gatsby-plugin-manifest": "^2.2.39",
